@@ -6,4 +6,8 @@ class AmazonAffiliateController < Telegram::Bot::UpdatesController
 
     respond_with :message, text: "Did you say #{message}?"
   end
+
+  def start!(word = nil, *other_words)
+    respond_with :message, text: "Hello!"
+  end
 end
