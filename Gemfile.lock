@@ -77,6 +77,7 @@ GEM
     erubi (1.11.0)
     globalid (1.0.0)
       activesupport (>= 5.0)
+    httpclient (2.8.3)
     i18n (1.12.0)
       concurrent-ruby (~> 1.0)
     io-console (0.5.11)
@@ -139,6 +140,10 @@ GEM
     reline (0.3.1)
       io-console (~> 0.5)
     sqlite3 (1.5.4-arm64-darwin)
+    telegram-bot (0.15.6)
+      actionpack (>= 4.0, < 7.1)
+      activesupport (>= 4.0, < 7.1)
+      httpclient (~> 2.7)
     thor (1.2.1)
     timeout (0.3.0)
     tzinfo (2.0.5)
@@ -157,6 +162,7 @@ DEPENDENCIES
   puma (~> 5.0)
   rails (~> 7.0.4)
   sqlite3 (~> 1.4)
+  telegram-bot
   tzinfo-data
 
 RUBY VERSION
