@@ -141,8 +141,6 @@ GEM
     rake (13.0.6)
     reline (0.3.1)
       io-console (~> 0.5)
-    sqlite3 (1.5.4-arm64-darwin)
-    sqlite3 (1.5.4-x86_64-linux)
     telegram-bot (0.15.6)
       actionpack (>= 4.0, < 7.1)
       activesupport (>= 4.0, < 7.1)
@@ -165,7 +163,6 @@ DEPENDENCIES
   debug
   puma (~> 5.0)
   rails (~> 7.0.4)
-  sqlite3 (~> 1.4)
   telegram-bot
   tzinfo-data
 
