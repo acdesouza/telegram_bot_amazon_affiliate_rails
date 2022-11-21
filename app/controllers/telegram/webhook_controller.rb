@@ -36,10 +36,6 @@ class Telegram::WebhookController < ApplicationController
   def answer(sender:, text:)
     answer  = "Olar, #{sender}!\n Poderia comprar por esse link? \n#{AmazonAffiliateComposer.extract(text).join(",\n")}"
 
-    puts '.' * 50
-    pp answer
-    puts "-" * 50
-
     answer
   end
 
@@ -51,8 +47,9 @@ class Telegram::WebhookController < ApplicationController
 
   def has_amazon_url?(text)
     extracted_urls = URI.extract(text)
+
     extracted_urls.any? do |url|
-      URI(url).hostname.match?(/amazon.com.br/)
+      URI(url).hostname&.match?(/amazon.com.br/)
     end
   end
 end
