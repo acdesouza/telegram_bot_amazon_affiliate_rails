@@ -1,0 +1,46 @@
+{
+  "name": "Amazon Affliate links for Telegram",
+  "description": "Telegram Bot to generate Amazon Affiliate links based com links in the conversation",
+  "keywords": [
+    "telegram",
+    "amazon",
+    "affiliate",
+    "rails"
+  ],
+  "success_url": "/welcome",
+  "website": "https://github.com/acdesouza",
+  "repository": "https://github.com/acdesouza/telegram_bot_amazon_affiliate_rails",
+  "env": {
+    "AMAZON_AFFILIATE_CODE": {
+      "description": "Your affiliate amazon tag",
+      "value": ""
+    },
+    "AMAZON_LINK_CODE": {
+      "description": "Your affiliate amazon link code",
+      "value": ""
+    },
+    "HEROKU_URL": {
+      "description": "The URL of the Heroku app from Heroku.com",
+      "value": "replace_with_app_name.herokuapp.com"
+    },
+    "TELEGRAM_BOT_TOKEN": {
+      "description": "Telegram bot token API from @Botfather",
+      "value": ""
+    }
+  },
+  "scripts": {
+    "postdeploy": "bundle exec rake telegram:webhooks:register"
+  },
+  "addons": [],
+  "buildpacks": [
+    {
+    "url": "heroku/ruby"
+    }
+  ],
+  "formation": {
+    "web": {
+      "quantity": 1,
+      "size": "free"
+    }
+  }
+}
