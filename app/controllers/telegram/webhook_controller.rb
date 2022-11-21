@@ -34,7 +34,7 @@ class Telegram::WebhookController < ApplicationController
   end
 
   def answer(sender:, text:)
-    answer  = "Hello, #{sender}!\n Did you said: '#{text}'?"
+    answer  = "Olar, #{sender}!\n Poderia comprar por esse link? \n#{amazon_urls(text).join(",\n")}"
 
     puts '.' * 50
     pp answer
@@ -53,6 +53,18 @@ class Telegram::WebhookController < ApplicationController
     extracted_urls = URI.extract(text)
     extracted_urls.any? do |url|
       URI(url).hostname.match?(/amazon.com.br/)
+    end
+  end
+
+  AMAZON_PRODUCT_URL = "https://www.amazon.com.br/dp"
+  LINK_CODE          = ENV.fetch('AMAZON_LINK_CODE', 'batata')
+  AFFILIATE_CODE     = ENV.fetch('AMAZON_AFFILIATE_CODE', 'batata')
+  def amazon_urls(text)
+    text.scan(/dp\/(B[0-9|A-Z]{9})/)
+      .flatten
+      .uniq
+      .map do |product_id|
+      "#{AMAZON_PRODUCT_URL}/#{product_id}?linkCode=#{LINK_CODE}&tag=#{AFFILIATE_CODE}"
     end
   end
 end
