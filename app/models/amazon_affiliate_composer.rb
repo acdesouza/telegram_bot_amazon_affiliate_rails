@@ -21,4 +21,12 @@ module AmazonAffiliateComposer
       amazon_uri.to_s
     end
   end
+
+  def self.has_amazon_url?(text)
+    extracted_urls = URI.extract(text)
+
+    extracted_urls.any? do |url|
+      URI(url).hostname&.match?(/amazon.com.br/)
+    end
+  end
 end

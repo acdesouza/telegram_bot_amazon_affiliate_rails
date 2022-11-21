@@ -31,4 +31,12 @@ class AmazonAffiliateComposerTest < ActiveSupport::TestCase
 
     assert_equal ["#{original_url}&linkCode=batata&tag=batata"], AmazonAffiliateComposer.extract("Please, convert #{original_url}")
   end
+
+  # TODO Request shorten URLs
+  test "should convert shorten links" do
+    skip
+    original_url = "https://a.co/d/88xaxKm"
+
+    assert_equal ["#{original_url}&linkCode=batata&tag=batata"], AmazonAffiliateComposer.extract("Please, convert #{original_url}")
+  end
 end
