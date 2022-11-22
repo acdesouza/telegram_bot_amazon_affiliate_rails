@@ -36,14 +36,12 @@ class AmazonAffiliateComposerTest < ActiveSupport::TestCase
     original_url = "https://www.amazon.com.br/Cabo-Áudio-Fêmea-Macho-extensor/dp/B076HWNHL9/ref=asc_df_B076HWNHL9/?tag=googleshopp06-20&linkCode=df0&hvadid=379678176360&hvpos=&hvnetw=g&hvrand=1704462193912046973&hvpone=&hvptwo=&hvqmt=&hvdev=m&hvdvcmdl=&hvlocint=&hvlocphy=9101684&hvtargid=pla-918426066916&psc=1"
     expected_url = "https://www.amazon.com.br/Cabo-%C3%81udio-F%C3%AAmea-Macho-extensor/dp/B076HWNHL9/ref=asc_df_B076HWNHL9/?hvadid=379678176360&hvpos=&hvnetw=g&hvrand=1704462193912046973&hvpone=&hvptwo=&hvqmt=&hvdev=m&hvdvcmdl=&hvlocint=&hvlocphy=9101684&hvtargid=pla-918426066916&psc=1&linkCode=batata&tag=batata"
 
-    assert_equal [expected_url] ,AmazonAffiliateComposer.extract("Please, convert #{original_url}")
+    assert_equal [expected_url], AmazonAffiliateComposer.extract("Please, convert #{original_url}")
   end
 
-  # TODO Request shorten URLs
-  test "should convert shorten links" do
-    skip
-    original_url = "https://a.co/d/88xaxKm"
+  test "should convert shorten links using a.co domain" do
+    original_url = "https://a.co/d/bDPiQX2"
 
-    assert_equal ["#{original_url}&linkCode=batata&tag=batata"], AmazonAffiliateComposer.extract("Please, convert #{original_url}")
+    assert_equal ["#{original_url}?linkCode=batata&tag=batata"], AmazonAffiliateComposer.extract("Please, convert #{original_url}")
   end
 end

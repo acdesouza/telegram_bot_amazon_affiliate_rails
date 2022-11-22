@@ -1,12 +1,13 @@
 module AmazonAffiliateComposer
   LINK_CODE      = ENV.fetch('AMAZON_LINK_CODE', 'batata')
   AFFILIATE_CODE = ENV.fetch('AMAZON_AFFILIATE_CODE', 'batata')
+  REG_EXP_AMAZON_URL = "amazon.com.br|a.co"
 
   def self.extract(text)
-    text.scan(/(https:\/\/(www.)?amazon.com.br\S*)/)
+    text.scan(/(https:\/\/(www.)?[#{REG_EXP_AMAZON_URL}]\S*)/)
       .flatten
       .uniq
-      .select{ |u| u.match? /amazon.com/ }
+      .select{ |u| u&.match?(/#{REG_EXP_AMAZON_URL}/) }
       .map do |amazon_url|
 
       amazon_uri = URI.parse(amazon_url.chars.map { |char| char.ascii_only? ? char : CGI.escape(char) }.join)
@@ -26,7 +27,7 @@ module AmazonAffiliateComposer
     extracted_urls = URI.extract(text)
 
     extracted_urls.any? do |url|
-      URI(url).hostname&.match?(/amazon.com.br/)
+      URI(url).hostname&.match?(/#{REG_EXP_AMAZON_URL}/)
     end
   end
 end
