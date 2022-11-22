@@ -20,7 +20,7 @@ class TelegramBot
   end
 
   def answer(sender:, text:)
-    answer  = "Olar, #{sender}!\n Poderia comprar por esse link? \n#{AmazonAffiliateComposer.extract(text).join(",\n")}"
+    answer  = "Olar, #{sender}!\nPoderia comprar por esse link?\n\n#{AmazonAffiliateComposer.extract(text).join(",\n")}"
 
     answer
   end
