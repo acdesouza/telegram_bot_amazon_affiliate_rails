@@ -2,7 +2,7 @@ ENV["RAILS_ENV"] ||= "test"
 
 require 'simplecov'
 SimpleCov.start 'rails' do
-  minimum_coverage 85
+  minimum_coverage 91
 end
 
 require_relative "../config/environment"

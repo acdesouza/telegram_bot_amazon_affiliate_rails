@@ -15,7 +15,7 @@ class TelegramBot
 
   def should_answer?(text:, is_bot:)
     return text.present? &&
-           !is_bot &&
+           !ActiveModel::Type::Boolean.new.cast(is_bot) &&
            AmazonAffiliateComposer.has_amazon_url?(text)
   end
 
