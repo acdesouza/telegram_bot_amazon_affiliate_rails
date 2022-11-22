@@ -1,5 +1,7 @@
 # README
 
+[![Build Status](https://app.travis-ci.com/acdesouza/telegram_bot_amazon_affiliate_rails.svg?branch=main)](https://app.travis-ci.com/acdesouza/telegram_bot_amazon_affiliate_rails)
+
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/acdesouza/telegram_bot_amazon_affiliate_rails)
 
 Telegram Bot to answer messages with Amazon links with your affiliate link.
