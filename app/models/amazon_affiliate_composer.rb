@@ -9,7 +9,7 @@ module AmazonAffiliateComposer
       .select{ |u| u.match? /amazon.com/ }
       .map do |amazon_url|
 
-      amazon_uri   = URI(amazon_url)
+      amazon_uri = URI.parse(amazon_url.chars.map { |char| char.ascii_only? ? char : CGI.escape(char) }.join)
 
       amazon_query_str_clean = (amazon_uri.query || "").gsub(/&amp%3B/, '&' ).gsub(/amp%3B/, '' )
       amazon_query = URI.decode_www_form(amazon_query_str_clean).delete_if {|f|  ['', 'linkCode', 'tag'].include? f.first.strip}
