@@ -1,6 +1,6 @@
 class Telegram::WebhookController < ApplicationController
   def create
-    bot = TelegramBot.new
+    bot = Telegram::Bot.new
 
     bot.reply_to(message: Telegram::Message.new(
                    id:          params.dig(:message, :message_id),

@@ -1,6 +1,6 @@
 require 'net/http'
 
-class TelegramBot
+class Telegram::Bot
   TOKEN  = ENV.fetch('TELEGRAM_BOT_TOKEN', 'MISSING_BOT_ID')
   SERVER = ENV.fetch('TELEGRAM_API', 'https://api.telegram.org')
 

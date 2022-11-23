@@ -21,7 +21,7 @@ The Heroku Deploy button will attempt to do it.
 
 # How it works
 
-The `Telegram::WebhookController` receives the Telegram request and asks `TelegramBot` to reply to it.
+The `Telegram::WebhookController` receives the Telegram request and asks `Telegram::Bot` to reply to it.
 
 
 # Telegram API docs

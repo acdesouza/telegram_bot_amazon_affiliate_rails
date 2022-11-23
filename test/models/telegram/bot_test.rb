@@ -1,6 +1,10 @@
 require "test_helper"
 
-class TelegramBotTest < ActiveSupport::TestCase
+class Telegram::BotTest < ActiveSupport::TestCase
+  setup do
+    @bot = Telegram::Bot.new
+  end
+
   test "should convert dp links" do
     original_msg = Telegram::Message.new(
       sender_name: 'AC',
@@ -9,8 +13,8 @@ class TelegramBotTest < ActiveSupport::TestCase
     )
     expected_msg = "Olar, AC!\nPoderia comprar por esse link?\n\nhttps://www.amazon.com.br/Jameson-Whisky-750ml/dp/B07FPW95CM/?linkCode=batata&tag=batata"
 
-    assert TelegramBot.new.should_answer?(original_msg)
-    assert_equal expected_msg, TelegramBot.new.answer(original_msg)
+    assert @bot.should_answer?(original_msg)
+    assert_equal expected_msg, @bot.answer(original_msg)
   end
 
   test "should convert shorten links" do
@@ -21,7 +25,7 @@ class TelegramBotTest < ActiveSupport::TestCase
     )
     expected_msg = "Olar, AC!\nPoderia comprar por esse link?\n\nhttps://a.co/d/bDPiQX2?linkCode=batata&tag=batata"
 
-    assert TelegramBot.new.should_answer?(original_msg)
-    assert_equal expected_msg, TelegramBot.new.answer(original_msg)
+    assert @bot.should_answer?(original_msg)
+    assert_equal expected_msg, @bot.answer(original_msg)
   end
 end
