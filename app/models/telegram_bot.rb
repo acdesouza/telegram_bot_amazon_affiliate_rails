@@ -4,23 +4,30 @@ class TelegramBot
   TOKEN  = ENV.fetch('TELEGRAM_BOT_TOKEN', 'MISSING_BOT_ID')
   SERVER = ENV.fetch('TELEGRAM_API', 'https://api.telegram.org')
 
-  def message(chat_id:, reply_to_message_id:, text:)
+  def reply_to(message:)
+    if should_answer? message
+      message(answer(message), message.chat_id, reply_to_msg: message)
+    end
+  end
+
+  def message(text, chat_id, reply_to_msg:)
     sendMessageURL = URI("#{SERVER}/bot#{TOKEN}/sendMessage")
 
-    res = Net::HTTP.post_form(sendMessageURL,
-                              chat_id: chat_id,
-                              reply_to_message_id: reply_to_message_id,
-                              text: text)
+    res = Net::HTTP.post_form sendMessageURL,
+                              {
+                                chat_id: chat_id,
+                                text: text
+                              }.merge(reply_to_msg&.to_reply)
   end
 
-  def should_answer?(text:, is_bot:)
-    return text.present? &&
-           !ActiveModel::Type::Boolean.new.cast(is_bot) &&
-           AmazonAffiliateComposer.has_amazon_url?(text)
+  def should_answer?(msg)
+    return msg.text.present? &&
+           !ActiveModel::Type::Boolean.new.cast(msg.is_bot) &&
+           AmazonAffiliateComposer.has_amazon_url?(msg.text)
   end
 
-  def answer(sender:, text:)
-    answer  = "Olar, #{sender}!\nPoderia comprar por esse link?\n\n#{AmazonAffiliateComposer.extract(text).join(",\n")}"
+  def answer(msg)
+    answer  = "Olar, #{msg.sender_name}!\nPoderia comprar por esse link?\n\n#{AmazonAffiliateComposer.extract(msg.text).join(",\n")}"
 
     answer
   end
