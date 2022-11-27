@@ -50,4 +50,11 @@ class AmazonAffiliateComposerTest < ActiveSupport::TestCase
 
     assert_equal ["#{original_url}?linkCode=batata&tag=batata"], AmazonAffiliateComposer.extract("Please, convert #{original_url}")
   end
+
+  test "should not answer to non-amazon links" do
+    # It was caught by the kalung[a.co]m pattern
+    kalunga_url = "https://www.kalunga.com.br/prod/refiladora-precise-cut-a4-894110-maped-bt-1-un/378701"
+
+    refute AmazonAffiliateComposer.has_amazon_url?(kalunga_url)
+  end
 end
