@@ -44,4 +44,10 @@ class AmazonAffiliateComposerTest < ActiveSupport::TestCase
 
     assert_equal ["#{original_url}?linkCode=batata&tag=batata"], AmazonAffiliateComposer.extract("Please, convert #{original_url}")
   end
+
+  test "should convert shorten links using amzn.to domain" do
+    original_url = "https://amzn.to/3GHw0Ff"
+
+    assert_equal ["#{original_url}?linkCode=batata&tag=batata"], AmazonAffiliateComposer.extract("Please, convert #{original_url}")
+  end
 end
