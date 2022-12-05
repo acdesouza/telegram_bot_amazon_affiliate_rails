@@ -1,3 +1,5 @@
+require 'net/http'
+
 module AmazonAffiliateComposer
   LINK_CODE      = ENV.fetch('AMAZON_LINK_CODE', 'batata')
   AFFILIATE_CODE = ENV.fetch('AMAZON_AFFILIATE_CODE', 'batata')
@@ -36,6 +38,7 @@ module AmazonAffiliateComposer
       super
 
       @url = parse_url(original_url)
+      @url = unshorten_url(@url)
 
       if @url.query.present?
         @url = clean_decoded_params(@url)
@@ -54,6 +57,25 @@ module AmazonAffiliateComposer
       amazon_uri.tap do |uri|
         uri.query = uri.query.gsub(/&amp%3B/, '&' ).gsub(/amp%3B/, '' )
       end
+    end
+
+    def unshorten_url(amazon_uri, limit = 5)
+      return amazon_uri if !shortened?(amazon_uri) || limit == 0
+
+      response = Net::HTTP.get_response(amazon_uri)
+
+      case response
+      when Net::HTTPSuccess then
+        response
+      when Net::HTTPRedirection then
+        unshorten_url(URI(response['location']), limit - 1)
+      else
+        URI(response)
+      end
+    end
+
+    def shortened?(amazon_uri)
+      !amazon_uri.hostname.starts_with? "www.amazon.com"
     end
 
     def remove_existing_affiliation_code(amazon_uri)

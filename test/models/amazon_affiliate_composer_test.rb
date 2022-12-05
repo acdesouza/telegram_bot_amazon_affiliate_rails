@@ -41,14 +41,16 @@ class AmazonAffiliateComposerTest < ActiveSupport::TestCase
 
   test "should convert shorten links using a.co domain" do
     original_url = "https://a.co/d/bDPiQX2"
+    expected_url = "https://www.amazon.com.br/dp/B076HWNHL9?ref_=cm_sw_r_apin_dp_3831ZDWSHYM5K6QC1R84&linkCode=batata&tag=batata"
 
-    assert_equal ["#{original_url}?linkCode=batata&tag=batata"], AmazonAffiliateComposer.extract("Please, convert #{original_url}")
+    assert_equal [expected_url], AmazonAffiliateComposer.extract("Please, convert #{original_url}")
   end
 
-  test "should convert shorten links using amzn.to domain" do
+  test "should convert shorten links using amzn.to domain removing original affiliate tag" do
     original_url = "https://amzn.to/3GHw0Ff"
+    expected_url = "https://www.amazon.com.br/gp/product/B07DX966PH?smid=A1ZZFT5FULY4LN&th=1&psc=1&linkId=6cc5e50b4cbd2b40422f76bdbce52e88&language=pt_BR&ref_=as_li_ss_tl&linkCode=batata&tag=batata"
 
-    assert_equal ["#{original_url}?linkCode=batata&tag=batata"], AmazonAffiliateComposer.extract("Please, convert #{original_url}")
+    assert_equal [expected_url], AmazonAffiliateComposer.extract("Please, convert #{original_url}")
   end
 
   test "should not answer to non-amazon links" do

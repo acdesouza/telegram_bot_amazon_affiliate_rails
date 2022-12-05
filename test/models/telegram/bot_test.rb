@@ -23,7 +23,7 @@ class Telegram::BotTest < ActiveSupport::TestCase
       is_bot: false,
       text: "Can you send me this link? https://a.co/d/bDPiQX2"
     )
-    expected_msg = "Olar, AC!\nPoderia comprar por esse link?\n\nhttps://a.co/d/bDPiQX2?linkCode=batata&tag=batata"
+    expected_msg = "Olar, AC!\nPoderia comprar por esse link?\n\nhttps://www.amazon.com.br/dp/B076HWNHL9?ref_=cm_sw_r_apin_dp_3831ZDWSHYM5K6QC1R84&linkCode=batata&tag=batata"
 
     assert @bot.should_answer?(original_msg)
     assert_equal expected_msg, @bot.answer(original_msg)
