@@ -56,7 +56,10 @@ class AmazonAffiliateComposerTest < ActiveSupport::TestCase
   test "should not answer to non-amazon links" do
     # It was caught by the kalung[a.co]m pattern
     kalunga_url = "https://www.kalunga.com.br/prod/refiladora-precise-cut-a4-894110-maped-bt-1-un/378701"
-
     refute AmazonAffiliateComposer.has_amazon_url?(kalunga_url)
+    #
+    # It was caught by the pan[asco] pattern. Because . means any non-blank character
+    linkedin_url = "https://www.linkedin.com/pulse/benef%C3%ADcios-fiscais-da-triangula%C3%A7%C3%A3o-atrav%C3%A9s-do-uruguai-joaqu%C3%ADn-panasco/"
+    refute AmazonAffiliateComposer.has_amazon_url?(linkedin_url)
   end
 end
